@@ -6,11 +6,12 @@ import {
   deleteCard,
 } from "./components/card.js";
 import { openModal, closeModal } from "./components/modal.js";
-
 const placesList = document.querySelector(".places__list");
+
 const imagePopup = document.querySelector(".popup_type_image");
 const imagePopupImage = imagePopup.querySelector(".popup__image");
 const imagePopupCaption = imagePopup.querySelector(".popup__caption");
+
 const popups = document.querySelectorAll(".popup");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_type_edit");
@@ -40,7 +41,8 @@ initialCards.forEach((cardContent) => {
     cardContent,
     deleteCard,
     handleLikeButtonClick,
-    handleCardImageClick
+    handleCardImageClick,
+    openImagePopup
   );
   placesList.append(card);
 });
@@ -58,8 +60,6 @@ function handleProfileFormSubmit(evt) {
   profileTitle.textContent = nameValue;
   profileDescription.textContent = jobValue;
 
-  nameInput.value = "";
-  jobInput.value = "";
   closeModal(popupEdit);
 }
 
@@ -96,11 +96,11 @@ formAddNewCard.addEventListener("submit", (evt) => {
   closeModal(popupNewCard);
 });
 
-function openImagePopup(src, name) {
-  imageElement.src = src;
-  imageElement.alt = name;
-  caption.textContent = name;
-  openPopup(popupImage);
+function openImagePopup({ link, name }) {
+  imagePopupImage.src = link;
+  imagePopupImage.alt = name;
+  imagePopupCaption.textContent = name;
+  openModal(imagePopup);
 }
 
 formEditProfile.addEventListener("submit", handleProfileFormSubmit);

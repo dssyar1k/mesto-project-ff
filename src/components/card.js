@@ -18,9 +18,9 @@ export function createCard(
   const deleteButton = cardElement.querySelector(".card__delete-button");
   const likeButton = cardElement.querySelector(".card__like-button");
   //Установка значений из данных карточки
-  cardTitle.textContent = cardContent.name;
   cardImage.src = cardContent.link;
   cardImage.alt = cardContent.name;
+  cardTitle.textContent = cardContent.name;
   //Обработчик клика на кнопку
   deleteButton.addEventListener("click", () => {
     deleteCard(cardElement);
@@ -28,9 +28,7 @@ export function createCard(
 
   likeButton.addEventListener("click", handleLikeButtonClick);
 
-  cardImage.addEventListener("click", () => {
-    handleCardImageClick(cardContent);
-  });
+  cardImage.addEventListener("click", () => handleCardImageClick(cardContent));
 
   return cardElement;
 }
