@@ -37,13 +37,26 @@ function createCard(
     cardLikeButton.classList.add("card__like-button_is-active");
   }
 
-  cardLikeButton.addEventListener("click", (event) => {
-    if (event.target.classList.contains("card__like-button_is-active")) {
-      deletelikeCallback(event);
-    } else {
-      addlikeCallback(event);
-    }
-  });
+  const handleLikeClick = (event) => {
+    const cardLikeButton = event.target;
+    const isLiked = cardLikeButton.classList.contains(
+      "card__like-button_is-active"
+    );
+    const likeMethod = {
+      add: () => {
+        cardLikeButton.classList.add("card__like-button_is-active");
+        addLikeCard(event);
+      },
+
+      remove: () => {
+        cardLikeButton.classList.remove("card__like-button_is-active");
+        deleteLikeCard(event);
+      },
+    };
+
+    isLiked ? likeMethod.remove() : likeMethod.add();
+  };
+  cardLikeButton.addEventListener("click", handleLikeClick);
 
   cardImage.addEventListener("click", () => {
     openCardCallback(cardContent);

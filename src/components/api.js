@@ -1,14 +1,3 @@
-export {
-  getUserAPI,
-  getCardsAPI,
-  patchUserAPI,
-  postAddCardAPI,
-  deleteCardAPI,
-  addLikeCardAPI,
-  deleteLikeCardAPI,
-  editUserProfileAPI,
-};
-
 const config = {
   baseUrl: "https://nomoreparties.co/v1/wff-cohort-40",
   headers: {
@@ -87,4 +76,15 @@ const editUserProfileAPI = (data) => {
       avatar: data.avatar,
     }),
   }).then(getResponseData);
+};
+
+export {
+  getUserAPI,
+  getCardsAPI,
+  patchUserAPI,
+  postAddCardAPI,
+  deleteCardAPI,
+  addLikeCardAPI,
+  deleteLikeCardAPI,
+  editUserProfileAPI,
 };
