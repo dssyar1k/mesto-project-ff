@@ -34,26 +34,36 @@ function createCard(
     cardLikeButton.classList.add("card__like-button_is-active");
   }
 
-  //Встроенная обработка лайка
-  cardLikeButton.addEventListener("click", () => {
-    const isLiked = cardLikeButton.classList.contains(
-      "card__like-button_is-active"
-    );
-    const likeMethod = isLiked ? deleteLikeCardAPI : addLikeCardAPI;
+  cardLikeButton.addEventListener("click", likeCallback);
 
-    likeMethod(cardContent._id)
-      .then((cardContent) => {
-        cardLikeCounter.textContent = cardContent.likes.length;
-        cardLikeButton.classList.toggle("card__like-button_is-active");
-      })
-      .catch((err) => console.error("Ошибка при лайке:", err));
-  });
   cardImage.addEventListener("click", () => {
     openCardCallback(cardContent);
   });
 
   return cardElement;
 }
+
+const likeCallback = (event) => {
+  const cardLikeButton = event.target;
+  const isLiked = cardLikeButton.classList.contains(
+    "card__like-button_is-active"
+  );
+  const likeMethod = isLiked ? deleteLikeCardAPI : addLikeCardAPI;
+  likeMethod(event.target.closest(".card").id)
+    .then((data) => {
+      event.target.classList.toggle("card__like-button_is-active");
+      const likeCountElement = event.target
+        .closest(".card")
+        .querySelector(".card__like-counter");
+      likeCountElement.textContent = data.likes.length;
+    })
+    .catch((err) => {
+      console.log(
+        "Возникла ошибка ${isLiked ? 'удаления' : 'добавления' лайка:",
+        err
+      );
+    });
+};
 
 function deleteCard(cardId, cardElement) {
   deleteCardAPI(cardId)
