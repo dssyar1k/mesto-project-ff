@@ -1,11 +1,6 @@
 import "./pages/index.css";
 import { openModal, closeModal } from "./components/modal.js";
-import {
-  createCard,
-  deleteCard,
-  addLikeCard,
-  deleteLikeCard,
-} from "./components/card.js";
+import { createCard, deleteCard } from "./components/card.js";
 import { enableValidation, clearValidation } from "./components/validation.js";
 import {
   getUserAPI,
@@ -130,10 +125,8 @@ function handleAddNewCard(event) {
     .then((card) => {
       const cardElement = createCard(
         card,
-        addLikeCard,
         popupFullImageClick,
         card.owner._id,
-        deleteLikeCard,
         handleDeleteIconClick
       );
       listPlaces.prepend(cardElement);
@@ -162,10 +155,8 @@ function renderCards() {
       cards.forEach((contentCard) => {
         const cardElement = createCard(
           contentCard,
-          addLikeCard,
           popupFullImageClick,
           user._id,
-          deleteLikeCard,
           handleDeleteIconClick
         );
         listPlaces.append(cardElement);
